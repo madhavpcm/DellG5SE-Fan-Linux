@@ -49,7 +49,7 @@
 					"fragment" : "-fPIC"
 				},
 				{
-					"fragment" : "-std=gnu++11"
+					"fragment" : "-std=gnu++17"
 				}
 			],
 			"defines" : 
@@ -112,7 +112,7 @@
 				[
 					2
 				],
-				"standard" : "11"
+				"standard" : "17"
 			},
 			"sourceIndexes" : 
 			[

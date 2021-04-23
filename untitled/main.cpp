@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 
             // This will run the task from the application event loop.
         QTimer::singleShot(0, task, SLOT(run()));
+
     }
 
 

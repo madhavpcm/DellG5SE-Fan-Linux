@@ -1,12 +1,10 @@
-CMakeFiles/untitled.dir/mainwindow.cpp.o: \
- /home/madhav/Dev/DellG5SE-Fan-Linux/untitled/mainwindow.cpp \
+CMakeFiles/untitled.dir/task.cpp.o: \
+ /home/madhav/Dev/DellG5SE-Fan-Linux/untitled/task.cpp \
  /usr/include/stdc-predef.h \
- /home/madhav/Dev/DellG5SE-Fan-Linux/untitled/mainwindow.h \
- /usr/include/qt/QtWidgets/QMainWindow \
- /usr/include/qt/QtWidgets/qmainwindow.h \
- /usr/include/qt/QtWidgets/qtwidgetsglobal.h \
- /usr/include/qt/QtGui/qtguiglobal.h /usr/include/qt/QtCore/qglobal.h \
- /usr/include/c++/10.2.0/type_traits \
+ /home/madhav/Dev/DellG5SE-Fan-Linux/untitled/task.h \
+ /usr/include/qt/QtCore/QObject /usr/include/qt/QtCore/qobject.h \
+ /usr/include/qt/QtCore/qobjectdefs.h /usr/include/qt/QtCore/qnamespace.h \
+ /usr/include/qt/QtCore/qglobal.h /usr/include/c++/10.2.0/type_traits \
  /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -121,16 +119,11 @@ CMakeFiles/untitled.dir/mainwindow.cpp.o: \
  /usr/include/c++/10.2.0/bits/atomic_lockfree_defines.h \
  /usr/include/qt/QtCore/qglobalstatic.h /usr/include/qt/QtCore/qnumeric.h \
  /usr/include/qt/QtCore/qversiontagging.h \
- /usr/include/qt/QtGui/qtgui-config.h \
- /usr/include/qt/QtWidgets/qtwidgets-config.h \
- /usr/include/qt/QtWidgets/qwidget.h /usr/include/qt/QtGui/qwindowdefs.h \
- /usr/include/qt/QtCore/qobjectdefs.h /usr/include/qt/QtCore/qnamespace.h \
  /usr/include/qt/QtCore/qobjectdefs_impl.h \
- /usr/include/qt/QtCore/qobject.h /usr/include/qt/QtCore/qstring.h \
- /usr/include/qt/QtCore/qchar.h /usr/include/qt/QtCore/qbytearray.h \
- /usr/include/qt/QtCore/qrefcount.h /usr/include/qt/QtCore/qarraydata.h \
- /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/10.2.0/stdlib.h \
+ /usr/include/qt/QtCore/qstring.h /usr/include/qt/QtCore/qchar.h \
+ /usr/include/qt/QtCore/qbytearray.h /usr/include/qt/QtCore/qrefcount.h \
+ /usr/include/qt/QtCore/qarraydata.h /usr/include/string.h \
+ /usr/include/strings.h /usr/include/c++/10.2.0/stdlib.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include/stdarg.h \
  /usr/include/c++/10.2.0/string /usr/include/c++/10.2.0/bits/stringfwd.h \
  /usr/include/c++/10.2.0/bits/char_traits.h \
@@ -213,61 +206,47 @@ CMakeFiles/untitled.dir/mainwindow.cpp.o: \
  /usr/include/qt/QtCore/qobject_impl.h /usr/include/c++/10.2.0/chrono \
  /usr/include/c++/10.2.0/ratio /usr/include/c++/10.2.0/ctime \
  /usr/include/c++/10.2.0/bits/parse_numbers.h \
- /usr/include/qt/QtCore/qmargins.h /usr/include/qt/QtGui/qpaintdevice.h \
- /usr/include/qt/QtCore/qrect.h /usr/include/qt/QtCore/qsize.h \
- /usr/include/qt/QtCore/qpoint.h /usr/include/qt/QtGui/qpalette.h \
- /usr/include/qt/QtGui/qcolor.h /usr/include/qt/QtGui/qrgb.h \
- /usr/include/qt/QtGui/qrgba64.h /usr/include/qt/QtGui/qbrush.h \
- /usr/include/qt/QtGui/qmatrix.h /usr/include/qt/QtGui/qpolygon.h \
- /usr/include/qt/QtGui/qregion.h /usr/include/qt/QtCore/qdatastream.h \
- /usr/include/qt/QtCore/qiodevice.h /usr/include/qt/QtCore/qline.h \
- /usr/include/qt/QtGui/qtransform.h /usr/include/qt/QtGui/qimage.h \
- /usr/include/qt/QtGui/qpixelformat.h /usr/include/qt/QtGui/qpixmap.h \
- /usr/include/qt/QtCore/qsharedpointer.h \
- /usr/include/qt/QtCore/qshareddata.h /usr/include/qt/QtCore/qhash.h \
- /usr/include/qt/QtCore/qsharedpointer_impl.h \
- /usr/include/c++/10.2.0/memory \
- /usr/include/c++/10.2.0/bits/stl_raw_storage_iter.h \
- /usr/include/c++/10.2.0/bits/ranges_uninitialized.h \
- /usr/include/c++/10.2.0/ext/concurrence.h \
+ /usr/include/qt/QtCore/QCoreApplication \
+ /usr/include/qt/QtCore/qcoreapplication.h \
+ /usr/include/qt/QtCore/qobject.h /usr/include/qt/QtCore/qcoreevent.h \
+ /usr/include/qt/QtCore/qeventloop.h /usr/include/c++/10.2.0/iostream \
+ /usr/include/c++/10.2.0/ostream /usr/include/c++/10.2.0/ios \
+ /usr/include/c++/10.2.0/bits/basic_ios.h \
+ /usr/include/c++/10.2.0/bits/locale_facets.h \
+ /usr/include/c++/10.2.0/cwctype /usr/include/wctype.h \
+ /usr/include/bits/wctype-wchar.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/ctype_base.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/ctype_inline.h \
+ /usr/include/c++/10.2.0/bits/locale_facets.tcc \
+ /usr/include/c++/10.2.0/bits/basic_ios.tcc \
+ /usr/include/c++/10.2.0/bits/ostream.tcc /usr/include/c++/10.2.0/istream \
+ /usr/include/c++/10.2.0/bits/istream.tcc /usr/include/c++/10.2.0/fstream \
+ /usr/include/c++/10.2.0/bits/codecvt.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/10.2.0/bits/fstream.tcc \
+ /usr/include/c++/10.2.0/filesystem /usr/include/c++/10.2.0/bits/fs_fwd.h \
+ /usr/include/c++/10.2.0/bits/fs_path.h /usr/include/c++/10.2.0/locale \
+ /usr/include/c++/10.2.0/bits/locale_facets_nonio.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/10.2.0/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/10.2.0/bits/locale_conv.h \
  /usr/include/c++/10.2.0/bits/unique_ptr.h \
+ /usr/include/c++/10.2.0/iomanip \
+ /usr/include/c++/10.2.0/bits/quoted_string.h \
+ /usr/include/c++/10.2.0/sstream /usr/include/c++/10.2.0/bits/sstream.tcc \
+ /usr/include/c++/10.2.0/codecvt \
+ /usr/include/c++/10.2.0/ext/concurrence.h \
  /usr/include/c++/10.2.0/bits/shared_ptr.h \
  /usr/include/c++/10.2.0/bits/shared_ptr_base.h \
- /usr/include/c++/10.2.0/bits/shared_ptr_atomic.h \
- /usr/include/c++/10.2.0/backward/auto_ptr.h \
- /usr/include/c++/10.2.0/pstl/glue_memory_defs.h \
- /usr/include/qt/QtGui/qfont.h /usr/include/qt/QtGui/qfontmetrics.h \
- /usr/include/qt/QtGui/qfontinfo.h \
- /usr/include/qt/QtWidgets/qsizepolicy.h /usr/include/qt/QtGui/qcursor.h \
- /usr/include/qt/QtGui/qkeysequence.h \
- /usr/include/qt/QtWidgets/qtabwidget.h /usr/include/qt/QtGui/qicon.h \
- /home/madhav/Dev/DellG5SE-Fan-Linux/build-untitled-Desktop-Debug/untitled_autogen/include/./ui_mainwindow.h \
- /usr/include/qt/QtCore/QVariant /usr/include/qt/QtCore/qvariant.h \
- /usr/include/qt/QtCore/qmap.h /usr/include/c++/10.2.0/variant \
- /usr/include/qt/QtWidgets/QApplication \
- /usr/include/qt/QtWidgets/qapplication.h \
- /usr/include/qt/QtCore/qcoreapplication.h \
- /usr/include/qt/QtCore/qcoreevent.h /usr/include/qt/QtCore/qeventloop.h \
- /usr/include/qt/QtGui/qguiapplication.h \
- /usr/include/qt/QtGui/qinputmethod.h /usr/include/qt/QtCore/qlocale.h \
- /usr/include/qt/QtCore/qvariant.h /usr/include/qt/QtWidgets/QFrame \
- /usr/include/qt/QtWidgets/qframe.h /usr/include/qt/QtWidgets/QLCDNumber \
- /usr/include/qt/QtWidgets/qlcdnumber.h \
- /usr/include/qt/QtWidgets/qframe.h /usr/include/qt/QtWidgets/QLabel \
- /usr/include/qt/QtWidgets/qlabel.h /usr/include/qt/QtWidgets/QLineEdit \
- /usr/include/qt/QtWidgets/qlineedit.h \
- /usr/include/qt/QtGui/qtextcursor.h /usr/include/qt/QtGui/qtextformat.h \
- /usr/include/qt/QtGui/qpen.h /usr/include/qt/QtGui/qtextoption.h \
- /usr/include/qt/QtWidgets/QMainWindow /usr/include/qt/QtWidgets/QMenuBar \
- /usr/include/qt/QtWidgets/qmenubar.h /usr/include/qt/QtWidgets/qmenu.h \
- /usr/include/qt/QtWidgets/qaction.h \
- /usr/include/qt/QtWidgets/qactiongroup.h \
- /usr/include/qt/QtWidgets/QPushButton \
- /usr/include/qt/QtWidgets/qpushbutton.h \
- /usr/include/qt/QtWidgets/qabstractbutton.h \
- /usr/include/qt/QtWidgets/QStatusBar \
- /usr/include/qt/QtWidgets/qstatusbar.h /usr/include/qt/QtWidgets/QWidget \
- /usr/include/qt/QtWidgets/qwidget.h \
- /usr/include/qt/QtWidgets/QMessageBox \
- /usr/include/qt/QtWidgets/qmessagebox.h \
- /usr/include/qt/QtWidgets/qdialog.h
+ /usr/include/c++/10.2.0/bits/fs_dir.h \
+ /usr/include/c++/10.2.0/bits/fs_ops.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
+ /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
+ /usr/include/err.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl-linux.h /usr/include/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/bits/stat.h \
+ /usr/include/bits/struct_stat.h

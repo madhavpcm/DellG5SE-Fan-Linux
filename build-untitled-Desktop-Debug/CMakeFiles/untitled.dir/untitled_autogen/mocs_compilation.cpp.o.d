@@ -10,6 +10,7 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/cpu_defines.h \
+ /usr/include/c++/10.2.0/pstl/pstl_config.h \
  /usr/include/c++/10.2.0/bits/functexcept.h \
  /usr/include/c++/10.2.0/bits/exception_defines.h \
  /usr/include/c++/10.2.0/bits/cpp_type_traits.h \
@@ -103,6 +104,8 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/10.2.0/bits/atomic_lockfree_defines.h \
  /usr/include/c++/10.2.0/backward/auto_ptr.h \
  /usr/include/c++/10.2.0/cstdint \
+ /usr/include/c++/10.2.0/pstl/glue_memory_defs.h \
+ /usr/include/c++/10.2.0/pstl/execution_defs.h \
  /home/madhav/Dev/DellG5SE-Fan-Linux/build-untitled-Desktop-Debug/untitled_autogen/EWIEGA46WW/../../../untitled/inputerror.h \
  /usr/include/qt/QtWidgets/QDialog /usr/include/qt/QtWidgets/qdialog.h \
  /usr/include/qt/QtWidgets/qtwidgetsglobal.h \
@@ -124,10 +127,24 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/10.2.0/bits/algorithmfwd.h \
  /usr/include/c++/10.2.0/bits/stl_heap.h \
  /usr/include/c++/10.2.0/bits/uniform_int_dist.h \
- /usr/include/c++/10.2.0/limits /usr/include/qt/QtCore/qtypeinfo.h \
- /usr/include/qt/QtCore/qsysinfo.h /usr/include/qt/QtCore/qlogging.h \
- /usr/include/qt/QtCore/qflags.h /usr/include/qt/QtCore/qatomic.h \
- /usr/include/qt/QtCore/qbasicatomic.h \
+ /usr/include/c++/10.2.0/limits \
+ /usr/include/c++/10.2.0/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/10.2.0/functional \
+ /usr/include/c++/10.2.0/bits/std_function.h \
+ /usr/include/c++/10.2.0/unordered_map \
+ /usr/include/c++/10.2.0/bits/hashtable.h \
+ /usr/include/c++/10.2.0/bits/hashtable_policy.h \
+ /usr/include/c++/10.2.0/bits/node_handle.h \
+ /usr/include/c++/10.2.0/optional \
+ /usr/include/c++/10.2.0/bits/enable_special_members.h \
+ /usr/include/c++/10.2.0/bits/unordered_map.h \
+ /usr/include/c++/10.2.0/bits/erase_if.h /usr/include/c++/10.2.0/vector \
+ /usr/include/c++/10.2.0/bits/stl_vector.h \
+ /usr/include/c++/10.2.0/bits/stl_bvector.h \
+ /usr/include/c++/10.2.0/bits/vector.tcc \
+ /usr/include/qt/QtCore/qtypeinfo.h /usr/include/qt/QtCore/qsysinfo.h \
+ /usr/include/qt/QtCore/qlogging.h /usr/include/qt/QtCore/qflags.h \
+ /usr/include/qt/QtCore/qatomic.h /usr/include/qt/QtCore/qbasicatomic.h \
  /usr/include/qt/QtCore/qatomic_cxx11.h \
  /usr/include/qt/QtCore/qgenericatomic.h /usr/include/c++/10.2.0/atomic \
  /usr/include/qt/QtCore/qglobalstatic.h /usr/include/qt/QtCore/qnumeric.h \
@@ -150,6 +167,8 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/ctype.h /usr/include/c++/10.2.0/bits/ostream_insert.h \
  /usr/include/c++/10.2.0/bits/cxxabi_forced.h \
  /usr/include/c++/10.2.0/bits/basic_string.h \
+ /usr/include/c++/10.2.0/string_view \
+ /usr/include/c++/10.2.0/bits/string_view.tcc \
  /usr/include/c++/10.2.0/ext/string_conversions.h \
  /usr/include/c++/10.2.0/cstdio /usr/include/stdio.h \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
@@ -180,14 +199,10 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt/QtCore/qhashfunctions.h /usr/include/qt/QtCore/qpair.h \
  /usr/include/c++/10.2.0/numeric \
  /usr/include/c++/10.2.0/bits/stl_numeric.h \
- /usr/include/c++/10.2.0/functional \
- /usr/include/c++/10.2.0/bits/std_function.h \
+ /usr/include/c++/10.2.0/pstl/glue_numeric_defs.h \
  /usr/include/qt/QtCore/qvector.h \
  /usr/include/qt/QtCore/qcontainertools_impl.h \
- /usr/include/c++/10.2.0/vector /usr/include/c++/10.2.0/bits/stl_vector.h \
- /usr/include/c++/10.2.0/bits/stl_bvector.h \
- /usr/include/c++/10.2.0/bits/vector.tcc /usr/include/c++/10.2.0/list \
- /usr/include/c++/10.2.0/bits/stl_list.h \
+ /usr/include/c++/10.2.0/list /usr/include/c++/10.2.0/bits/stl_list.h \
  /usr/include/c++/10.2.0/bits/list.tcc \
  /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed/limits.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include-fixed/syslimits.h \
@@ -204,7 +219,6 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/10.2.0/bits/stl_tree.h \
  /usr/include/c++/10.2.0/bits/stl_map.h \
  /usr/include/c++/10.2.0/bits/stl_multimap.h \
- /usr/include/c++/10.2.0/bits/erase_if.h \
  /usr/include/qt/QtCore/qobject_impl.h /usr/include/c++/10.2.0/chrono \
  /usr/include/c++/10.2.0/ratio /usr/include/c++/10.2.0/ctime \
  /usr/include/c++/10.2.0/bits/parse_numbers.h \
@@ -229,4 +243,45 @@ CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o: \
  /home/madhav/Dev/DellG5SE-Fan-Linux/build-untitled-Desktop-Debug/untitled_autogen/EWIEGA46WW/../../../untitled/mainwindow.h \
  /usr/include/qt/QtWidgets/QMainWindow \
  /usr/include/qt/QtWidgets/qmainwindow.h \
- /usr/include/qt/QtWidgets/qtabwidget.h /usr/include/qt/QtGui/qicon.h
+ /usr/include/qt/QtWidgets/qtabwidget.h /usr/include/qt/QtGui/qicon.h \
+ /home/madhav/Dev/DellG5SE-Fan-Linux/build-untitled-Desktop-Debug/untitled_autogen/EWIEGA46WW/moc_task.cpp \
+ /home/madhav/Dev/DellG5SE-Fan-Linux/build-untitled-Desktop-Debug/untitled_autogen/EWIEGA46WW/../../../untitled/task.h \
+ /usr/include/qt/QtCore/QObject /usr/include/qt/QtCore/qobject.h \
+ /usr/include/qt/QtCore/QCoreApplication \
+ /usr/include/qt/QtCore/qcoreapplication.h \
+ /usr/include/qt/QtCore/qcoreevent.h /usr/include/qt/QtCore/qeventloop.h \
+ /usr/include/c++/10.2.0/iostream /usr/include/c++/10.2.0/ostream \
+ /usr/include/c++/10.2.0/ios /usr/include/c++/10.2.0/bits/basic_ios.h \
+ /usr/include/c++/10.2.0/bits/locale_facets.h \
+ /usr/include/c++/10.2.0/cwctype /usr/include/wctype.h \
+ /usr/include/bits/wctype-wchar.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/ctype_base.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/ctype_inline.h \
+ /usr/include/c++/10.2.0/bits/locale_facets.tcc \
+ /usr/include/c++/10.2.0/bits/basic_ios.tcc \
+ /usr/include/c++/10.2.0/bits/ostream.tcc /usr/include/c++/10.2.0/istream \
+ /usr/include/c++/10.2.0/bits/istream.tcc /usr/include/c++/10.2.0/fstream \
+ /usr/include/c++/10.2.0/bits/codecvt.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/10.2.0/bits/fstream.tcc \
+ /usr/include/c++/10.2.0/filesystem /usr/include/c++/10.2.0/bits/fs_fwd.h \
+ /usr/include/c++/10.2.0/bits/fs_path.h /usr/include/c++/10.2.0/locale \
+ /usr/include/c++/10.2.0/bits/locale_facets_nonio.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/time_members.h \
+ /usr/include/c++/10.2.0/x86_64-pc-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/include/c++/10.2.0/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/10.2.0/bits/locale_conv.h \
+ /usr/include/c++/10.2.0/iomanip \
+ /usr/include/c++/10.2.0/bits/quoted_string.h \
+ /usr/include/c++/10.2.0/sstream /usr/include/c++/10.2.0/bits/sstream.tcc \
+ /usr/include/c++/10.2.0/codecvt /usr/include/c++/10.2.0/bits/fs_dir.h \
+ /usr/include/c++/10.2.0/bits/fs_ops.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
+ /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
+ /usr/include/err.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl-linux.h /usr/include/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/bits/stat.h \
+ /usr/include/bits/struct_stat.h

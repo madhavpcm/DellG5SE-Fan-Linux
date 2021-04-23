@@ -2,37 +2,44 @@
 #define TASK_H
 
 #include <QObject>
+#include<QCoreApplication>
+
+
+// #include "FindHwmon.h"
+#include <stdio.h>
+#include <iostream>
+#include <string>
+// #include <cstring>
+#include <algorithm>  // std::max
+#include <fstream>    //read  and write files
+#include <filesystem> // file browsing
+#include <unistd.h>   // sleep library
+// #include <stdexcept> //error handling
+// #include <gtk/gtk.h> // gtk interface
+
+
+#include <err.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+namespace fs = std::filesystem;
+
+#define ECio "/sys/kernel/debug/ec/ec0/io"
+#define GPUaddr 151 // 0x97
+#define CPUaddr 148 //0x94
+#define ZERO 255 // 0xFF
+#define SLOW 240 // 0xF0
+#define MEDIUM 200 // 204 -- 0xCC
+#define NORMAL 163 // 0xA3
+#define FAST 102 // 0x66
+#define BOOST 91 // 0x5B
 
 class Task : public QObject{
     Q_OBJECT
 public:
     Task(QCoreApplication *a ):QObject(a->instance()){}
 public slots:
-    void run(){
-        if(timer <=0 ){
-                // In that case, we assume the user only wants to set fans once, and exit.
-                const int left = std::min(std::max(lowtemp/1000,0),255);
-                const int right = std::min(std::max(hightemp/1000,0),255);
-                set_cpu_fan(left);
-                set_gpu_fan(right);
-                std::cout << "Set fans to " << left << " and " << right << "."<< std::endl;
-                emit finished();
-            }
-
-            // Fan update loop
-            while (true)
-            {
-                //First update the variables.
-                update_vars();
-                //Then update the fan speed accordingly.
-                update_fans(lowtemp,hightemp);
-                //Prints current status
-                print_status();
-                // wait $timer seconds
-                sleep(timer);
-            }
-        emit finished();
-    }
+    void run();
 signals:
     void finished();
 private:
@@ -44,6 +51,7 @@ private:
     std::string dGPU;
     std::string CPU;
     const std::string hwmon = "/sys/class/hwmon";
+
 
     void Hwmon_get();
     void update_vars();

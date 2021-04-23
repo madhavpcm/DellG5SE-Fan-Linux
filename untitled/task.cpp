@@ -1,40 +1,85 @@
 #include "task.h"
 
-// #include "FindHwmon.h"
-#include <stdio.h>
-#include <iostream>
-#include <string>
-// #include <cstring>
-#include <algorithm>  // std::max
-#include <fstream>    //read  and write files
-#include <filesystem> // file browsing
-#include <unistd.h>   // sleep library
-// #include <stdexcept> //error handling
-// #include <gtk/gtk.h> // gtk interface
+void Task::run(){
+    QStringList argv=QCoreApplication::arguments();
+    uint32_t argc= argv.size();
+    if (argc <= 2)
+    {
+        printf("Need more arguments.\n");
+        printf("Usage : DellFan -lowtemp # -hightemp # <optional> -timer #\n");
+        printf("or, if you only want to set speed once : DellFan leftspeed rightspeed -1\n");
+        exit(EXIT_FAILURE);
+    }
+    int lowtemp =0;
+    int hightemp =0;
+    int timer =10;
 
+    bool b_ltemp=false,b_htemp=false,b_timer=false;
+    for(uint32_t i=1 ; i<argc ; i++){
+        if(argv[i] == "-lowtemp"){
+            if(argv[i+1].toInt()){
+                lowtemp=argv[i+1].toInt()*1000;
+                b_ltemp=true;
+            }
+        }
+        if(argv[i] == "-hightemp"){
+            if(argv[i+1].toInt()){
+                lowtemp=argv[i+1].toInt()*1000;
+                b_htemp=true;
+            }
+        }
+        if(argv[i] == "-timer"){
+            if(argv[i+1].toInt()){
+                timer=argv[i+1].toInt();
+                b_timer=true;
+            }
+        }
+    }
 
-#include <err.h>
-#include <fcntl.h>
-#include <unistd.h>
+    if(!b_ltemp || !b_htemp){
+        std::cout<<"Invalid input for hightemp/lowtemp or missing hightemp/lowtemp arguments \n";
+        exit(EXIT_FAILURE);
+    }
+    std::cout<<"here"<<'\n';
 
-namespace fs = std::filesystem;
+    // std::cout << "Script launched with arguments : " << lowtemp/1000 << " " << hightemp/1000 << " " << timer <<std::endl; //Debug
 
-#define ECio "/sys/kernel/debug/ec/ec0/io"
-#define GPUaddr 151 // 0x97
-#define CPUaddr 148 //0x94
-#define ZERO 255 // 0xFF
-#define SLOW 240 // 0xF0
-#define MEDIUM 200 // 204 -- 0xCC
-#define NORMAL 163 // 0xA3
-#define FAST 102 // 0x66
-#define BOOST 91 // 0x5B
+    // Get hwmon variables
+    Hwmon_get();
+    // Check if launched with enough permissions.
+    check_fan_write_permission();
 
+    if(!b_timer )
+    {
+        // In that case, we assume the user only wants to set fans once, and exit.
+        const int left = std::min(std::max(lowtemp/1000,0),255);
+        const int right = std::min(std::max(hightemp/1000,0),255);
+        set_cpu_fan(left);
+        set_gpu_fan(right);
+        std::cout << "Set fans to " << left << " and " << right << "."<< std::endl;
+        emit finished();
+    }
+
+        // Fan update loop
+    while (true)
+    {
+        //First update the variables.
+        update_vars();
+        //Then update the fan speed accordingly.
+        update_fans(lowtemp,hightemp);
+        //Prints current status
+        print_status();
+        // wait $timer seconds
+        sleep(timer);
+    }
+    emit finished();
+}
 
 
  // either k10temp or zenpower
 
 //  Gets the Hwmon ids of dellsmm, k10temp/zenpower, and dGPU.
-void Hwmon_get()
+void Task::Hwmon_get()
 {
     // std::string dellsmm_path = "";
     // std::string cpu_path = "";
@@ -70,7 +115,7 @@ void Hwmon_get()
 };
 
 // Updates the thermals and fan variables.
-void update_vars()
+void Task::update_vars()
 {
     std::ifstream a;
     a.open(CPU + "/temp2_input"); //Tdie cpu temp
@@ -88,7 +133,7 @@ void update_vars()
 };
 
 // Set cpu fans to selected speed. Input should be in the set {0,128,256}.
-void set_cpu_fan(int left)
+void Task::set_cpu_fan(int left)
 {
     // Force left to be in [0,256]
     int l = std::max(0, std::min(255, left));
@@ -99,7 +144,7 @@ void set_cpu_fan(int left)
     pwm.close();
 };
 // Set gpu fans to selected speed. Input should be in the set {0,128,256}.
-void set_gpu_fan(int right)
+void Task::set_gpu_fan(int right)
 {
     // Force right to be in [0,256]
     int r = std::max(0, std::min(255, right));
@@ -111,7 +156,7 @@ void set_gpu_fan(int right)
 };
 
 
-void write_to_ec(int byte_offset, uint8_t value){
+void Task::write_to_ec(int byte_offset, uint8_t value){
     int fd = open(ECio, O_WRONLY);
     int error;
 
@@ -125,7 +170,7 @@ void write_to_ec(int byte_offset, uint8_t value){
             value, byte_offset);
 }
 
-void check_fan_write_permission()
+void Task::check_fan_write_permission()
 {
     std::ofstream pwm;
     pwm.open(dellsmm + "/pwm1");
@@ -138,7 +183,7 @@ void check_fan_write_permission()
 };
 
 // Updates fans accordings to temp.
-void update_fans(int lowtemp, int hightemp)
+void Task::update_fans(int lowtemp, int hightemp)
 {
     // int fan_update[2] = {-1, -1}; //To debug
     // Handle the left (cpu) fan
@@ -210,64 +255,12 @@ void update_fans(int lowtemp, int hightemp)
     }
 };
 
-void print_status()
+void Task::print_status()
 {
     std::cout << "Current fan speeds : " << cpu_fan << " RPM and " << gpu_fan << " RPM.      " << std::endl;
     std::cout << "CPU and GPU temperatures : " << cpu_temp/1000 << "°C and " << gpu_temp/1000 << "°C.  " << std::endl;
     std::cout << "\033[2F";
 };
 
-int main(int argc, char* argv[])
-{
 
-    if (argc <= 2)
-    {
-        printf("Need more arguments.\n");
-        printf("Usage : DellFan lowtemp hightemp timer\n");
-        printf("or, if you only want to set speed once : DellFan leftspeed rightspeed -1\n");
-        exit(EXIT_FAILURE);
-    }
-
-    const int lowtemp = std::stoi(argv[1]) * 1000;
-    const int hightemp = std::stoi(argv[2]) * 1000;
-    int timer =10;
-    if (argc >3){
-        timer = std::stoi(argv[3]);
-    }
-    // std::cout << "Script launched with arguments : " << lowtemp/1000 << " " << hightemp/1000 << " " << timer <<std::endl; //Debug
-
-    // Get hwmon variables
-    Hwmon_get();
-    // Check if launched with enough permissions.
-    check_fan_write_permission();
-
-    if(timer <=0 ){
-        // In that case, we assume the user only wants to set fans once, and exit.
-        const int left = std::min(std::max(lowtemp/1000,0),255);
-        const int right = std::min(std::max(hightemp/1000,0),255);
-        set_cpu_fan(left);
-        set_gpu_fan(right);
-        std::cout << "Set fans to " << left << " and " << right << "."<< std::endl;
-        return EXIT_SUCCESS;
-    }
-
-    // Fan update loop
-    while (true)
-    {
-        //First update the variables.
-        update_vars();
-        //Then update the fan speed accordingly.
-        update_fans(lowtemp,hightemp);
-        //Prints current status
-        print_status();
-        // wait $timer seconds
-        sleep(timer);
-    }
-    return EXIT_SUCCESS;
-}
-
-// void on_window_main_destroy()
-// {
-//     gtk_main_quit();
-// }
 

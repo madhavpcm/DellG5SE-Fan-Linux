@@ -47,9 +47,11 @@ private:
     int gpu_temp;
     int cpu_fan;
     int gpu_fan;
-    std::string dellsmm;
-    std::string dGPU;
-    std::string CPU;
+    std::string GPU_path;
+    std::string CPU_path;
+    std::string CPU_fan_path;
+    std::string GPU_fan_path; 
+    std::string dellsmm="";
     const std::string hwmon = "/sys/class/hwmon";
 
 

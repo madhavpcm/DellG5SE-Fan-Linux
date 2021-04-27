@@ -1,5 +1,10 @@
 #include "task.h"
-
+void Task::loop_break(){
+    if(std::getchar()==' '){
+        stop=true;
+        return;
+    }
+}
 void Task::run(){
     QStringList argv=QCoreApplication::arguments();
     uint32_t argc= argv.size();
@@ -58,9 +63,9 @@ void Task::run(){
         std::cout << "Set fans to " << left << " and " << right << "."<< std::endl;
         emit finished();
     }
-
+    std::thread t(&Task::loop_break, this);
         // Fan update loop
-    while (true)
+    while (!stop)
     {
         //First update the variables.
         update_vars();
@@ -69,8 +74,13 @@ void Task::run(){
         //Prints current status
         print_status();
         // wait $timer seconds
+
         sleep(timer);
     }
+    t.join();
+    set_cpu_fan(0);
+    set_gpu_fan(0);
+
     emit finished();
 }
 
@@ -268,6 +278,7 @@ void Task::print_status()
 {
     std::cout << "Current fan speeds : " << cpu_fan << " RPM and " << gpu_fan << " RPM.      " << std::endl;
     std::cout << "CPU and GPU temperatures : " << cpu_temp/1000 << "°C and " << gpu_temp/1000 << "°C.  " << std::endl;
+    std::cout << "Press <Space> to quit"<<std::endl;
     std::cout << "\033[2F";
 };
 

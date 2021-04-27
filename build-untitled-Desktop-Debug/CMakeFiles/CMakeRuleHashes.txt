@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-cbbd5c31271a0627455fce188c31a75d /home/madhav/Dev/DellG5SE-Fan-Linux/untitled/untitled_en_US.ts
-3192daed45c3e05385a1b3fbcd3f2f37 CMakeFiles/untitled_autogen

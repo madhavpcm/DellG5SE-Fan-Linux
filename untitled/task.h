@@ -14,6 +14,7 @@
 #include <fstream>    //read  and write files
 #include <filesystem> // file browsing
 #include <unistd.h>   // sleep library
+#include <thread>
 // #include <stdexcept> //error handling
 // #include <gtk/gtk.h> // gtk interface
 
@@ -53,7 +54,7 @@ private:
     std::string GPU_fan_path; 
     std::string dellsmm="";
     const std::string hwmon = "/sys/class/hwmon";
-
+    std::atomic_bool stop=false;
 
     void Hwmon_get();
     void update_vars();
@@ -63,7 +64,7 @@ private:
     void check_fan_write_permission();
     void update_fans(int lowtemp, int hightemp);
     void print_status();
-
+    void loop_break();
 };
 
 #endif // TASK_H

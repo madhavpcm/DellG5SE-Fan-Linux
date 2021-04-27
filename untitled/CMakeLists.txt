@@ -7,9 +7,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
+set(CMAKE_CXX_FLAGS "-pthread ")
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED  ON)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check https://doc.qt.io/qt/deployment-android.html for more information.

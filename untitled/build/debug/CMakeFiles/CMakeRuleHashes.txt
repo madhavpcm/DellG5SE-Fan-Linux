@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-bc478d5cf15088856b0b7f1f4303f9fe ../../untitled_en_US.ts
-635f9e8e8002b17c291e32adb443fe16 CMakeFiles/untitled_autogen

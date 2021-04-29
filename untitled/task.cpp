@@ -1,9 +1,14 @@
 #include "task.h"
 void Task::loop_break(){
-    if(std::getchar()==' '){
-        stop=true;
-        return;
+    char s;
+    while(true){
+        s=getchar();
+        if(s=='\n' || s==EOF)
+            break;
     }
+    stop=true;
+    return;
+
 }
 void Task::run(){
     QStringList argv=QCoreApplication::arguments();
@@ -279,7 +284,7 @@ void Task::print_status()
     std::cout << "Current fan speeds : " << cpu_fan << " RPM and " << gpu_fan << " RPM.      " << std::endl;
     std::cout << "CPU and GPU temperatures : " << cpu_temp/1000 << "°C and " << gpu_temp/1000 << "°C.  " << std::endl;
     std::cout << "Press <Space> to quit"<<std::endl;
-    std::cout << "\033[2F";
+    std::cout << "\033[3F";
 };
 
 

@@ -18,12 +18,13 @@ int main(int argc, char *argv[])
 {
     QCoreApplication *a(createapp(argc, argv));
     std::cout<< "QT version :: "<< QT_VERSION_STR << '\n';
-    QApplication* aApplication = qobject_cast<QApplication*>(QCoreApplication::instance());
+    QApplication* aGui = qobject_cast<QApplication*>(QCoreApplication::instance());
 
-    if(aApplication){
+    if(aGui){
        //gui
         MainWindow w;
         w.show();
+        return aGui->exec();
     }else{
         //no-gui
         Task *task = new Task(a);
@@ -33,9 +34,7 @@ int main(int argc, char *argv[])
 
             // This will run the task from the application event loop.
         QTimer::singleShot(0, task, SLOT(run()));
+        return a->exec();
 
     }
-
-
-    return a->exec();
 }

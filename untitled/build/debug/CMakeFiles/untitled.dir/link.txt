@@ -1,0 +1,1 @@
+/usr/bin/g++ -pthread  -g -DQT_QML_DEBUG CMakeFiles/untitled.dir/untitled_autogen/mocs_compilation.cpp.o CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/mainwindow.cpp.o CMakeFiles/untitled.dir/inputerror.cpp.o CMakeFiles/untitled.dir/task.cpp.o -o untitled  /usr/lib/libQt5Widgets.so.5.15.2 /usr/lib/libQt5Gui.so.5.15.2 /usr/lib/libQt5Core.so.5.15.2 

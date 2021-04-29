@@ -16,8 +16,11 @@ public:
     ~MainWindow();
 
 private:
+    bool is_auto_mode_running = false;
+
     Ui::MainWindow *ui;
 private slots:
-    void on_Exec_clicked();
+    void on_auto_Exec_clicked();
+    void on_manual_Exec_clicked();
 };
 #endif // MAINWINDOW_H

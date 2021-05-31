@@ -78,7 +78,7 @@ private:
     void set_cpu_fan(int left);
     void set_gpu_fan(int right);
     void check_fan_write_permission();
-    void update_fans(int lowtemp, int hightemp);
+   // void update_fans(int lowtemp, int hightemp);
     void update_fans();
     void print_status();
     void loop_break();

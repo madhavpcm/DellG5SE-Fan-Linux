@@ -286,15 +286,10 @@ void Task::manual_fan_mode(bool on)
 
 void Task::check_fan_write_permission()
 {
-    std::ofstream pwm;
-    pwm.open(dellsmm + "/pwm1");
-    if (!pwm.is_open())
-    {
-        std::cout << "Cannot change fan speed. Are you running the script with root permission ?" << std::endl;
+    if (getuid() != 0){
+        std::cout << "Cannot change fan speed. Are you running the script with root permission ?" << "\n";
         exit(EXIT_FAILURE);
-    }
-    pwm.close();
-
+    } 
     // Checks if ec_sys is correctly loaded.
     fs::path f(ECio);
     if(!fs::exists(f)){
@@ -366,7 +361,7 @@ void Task::usage(std::string prog_name, int status){
 }
 
 // Updates fans accordings to temp.
-void Task::update_fans(int lowtemp, int hightemp)
+/*void Task::update_fans(int lowtemp, int hightemp)
 {
     // Handle the left (cpu) fan
     if (cpu_temp < lowtemp)
@@ -419,7 +414,7 @@ void Task::update_fans(int lowtemp, int hightemp)
             // write_to_ec(GPUaddr,FAST);
         }
     }
-}
+}*/
 
 
 void Task::print_status()

@@ -8,86 +8,61 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    check_fan_write_permission();
+    //manual_fan_mode(true);
+
     ui->setupUi(this);
-    connect(ui->Exec, SIGNAL(clicked()),this, SLOT(on_auto_Exec_clicked()));
-    connect(ui->exec2, SIGNAL(clicked()),this, SLOT(on_manual_Exec_clicked()));
-    connect(this, SIGNAL(update_cpu(int)),ui->cpu_temp,SLOT(display(int)));
-    connect(this, SIGNAL(update_gpu_fan(int)),ui->cpu_rpm,SLOT(display(int)));
-    connect(this, SIGNAL(update_cpu(int)),ui->gpu_temp,SLOT(display(int)));
-    connect(this, SIGNAL(update_gpu_fan(int)),ui->gpu_rpm,SLOT(display(int)));
 
 }
 
+void MainWindow::manual_fan_mode(bool on)
+{
+    if(on){
+        write_to_ec(ManualECMode_cpu, 255);
+        write_to_ec(ManualECMode_gpu, 255);
+        QMessageBox::information(this,"Fan status","Fans are now in Manual mode");
+    }
+    else
+    {
+        write_to_ec(ManualECMode_cpu, 4);
+        write_to_ec(ManualECMode_gpu, 4);
+        QMessageBox::information(this, "Fan status", "Fans are now under BIOS control");
+    }
+
+}
+
+void MainWindow::check_fan_write_permission()
+{
+    if (getuid() != 0){
+        QMessageBox::warning(this, "Error", "This program needs elevated permissions to run. Run as sudo");
+        QApplication::quit();
+    }
+    // Checks if ec_sys is correctly loaded.
+    fs::path f(ECio);
+    if(!fs::exists(f)){
+        QMessageBox::warning(this, "Error", "EC I/O address not found. Make sure ec_sys module is loaded correctly. Try sudo modprobe ec_sys write_support=1 or add these options to the required conf files ");
+        QApplication::quit();
+    }
+}
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void MainWindow::on_auto_Exec_clicked()
+
+
+void MainWindow::on_dial_cpu_valueChanged(int value)
 {
-    uint32_t lowtemp= ui->lowtemp_input->text().toUInt()*1000;
-    uint32_t hightemp= ui->hightemp_input->text().toUInt()*1000;
-    uint32_t timer= ui->timer_input->text().toUInt()*1000;
-
-    if(!is_auto_mode_running){
-        bool flag=true;
-        if(!lowtemp){
-            QMessageBox::warning(this, "Input Error" , "Please enter a valid lowtemp value.");
-            flag=false;
-            ui->lowtemp_input->setText("0");
-        }else if(!hightemp){
-            QMessageBox::warning(this, "Input Error" , "Please enter a valid hightemp value.");
-            flag=false;
-            ui->hightemp_input->setText("0");
-        }else if(!timer){
-            QMessageBox::information(this, "Default timer will be used" ,
-                                     "Since no valid input for timer has been provided, the default value of <10> s is being used");
-            flag=false;
-            ui->timer_input->setText("10");
-        }else if(hightemp <= lowtemp){
-            QMessageBox::warning(this, "Input Error", "high temp should be greater than lowtemp");
-            ui->hightemp_input->setText("0");
-        }
-
-
-        if(flag){
-            //set values
-            is_auto_mode_running=true;
-            updateAutoExec();
-
-            int i=5;
-            while(is_auto_mode_running){
-                ui->cpu_temp->display(i);
-
-               // sleep(timer);
-            }
-
-        }else{
-
-
-
-        }
-
-
-
-
-
-  }else{
-        //stop stuff, set values to zero
-        is_auto_mode_running=false;
-        updateAutoExec();
-
-
-    }
-   updateAutoExec();
+    uint8_t fan = value;
+    //set_cpu_fan(value);
+    ui->cpu_rpm->display(value);
 }
-void MainWindow::on_manual_Exec_clicked(){
 
+
+void MainWindow::on_dial_gpu_valueChanged(int value)
+{
+    uint8_t fan=value;
+    //set_gpu_fan(value);
+    ui->gpu_rpm->display(value);
 }
-void MainWindow::updateAutoExec(){
-    if(is_auto_mode_running){
-        ui->Exec->setText("<Stop>");
-    }else{
-        ui->Exec->setText("<Exec>");
-    }
-}
+*/

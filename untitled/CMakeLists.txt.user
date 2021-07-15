@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.0, 2021-05-31T10:02:17. -->
+<!-- Written by QtCreator 4.15.0, 2021-06-24T14:27:08. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -92,7 +92,7 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{56ee0421-ddc8-42cd-9657-78328e53221b}</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">2</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
@@ -307,7 +307,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">untitled</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.untitled</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">untitled</value>
-    <value type="QString" key="RunConfiguration.Arguments">-no-gui -l 35 45 55 70</value>
+    <value type="QString" key="RunConfiguration.Arguments">-no-gui -l 40 50 60 70</value>
     <value type="bool" key="RunConfiguration.RunAsRoot">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
@@ -315,7 +315,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseTerminal">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/madhavpcm/Dev/DellG5SE-Fan-Linux/untitled/build/debug</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/madhavpcm/Dev/DellG5SE-Fan-Linux/untitled/build/release</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

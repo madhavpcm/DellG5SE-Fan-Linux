@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-
+install(FILES org.qt.policykit.examples.policy DESTINATION ${CMAKE_INSTALL_FULL_DATAROOTDIR}/polkit-1/actions/)
 project(g5sefans LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -26,6 +26,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED  ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(PolkitQt-1)
+
 
 set(TS_FILES untitled_en_US.ts)
 
@@ -63,3 +65,5 @@ else()
 endif()
 
 target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(untitled PRIVATE PolkitQt5-1::Core PolkitQt5-1::Gui PolkitQt5-1::Agent)
+

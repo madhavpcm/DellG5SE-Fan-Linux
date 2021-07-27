@@ -5,6 +5,7 @@
 #include <thread>
 #include <unistd.h>
 #include <filesystem>
+#include <fcntl.h>
 
 namespace fs=std::filesystem;
 QT_BEGIN_NAMESPACE

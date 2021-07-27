@@ -26,7 +26,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED  ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
-find_package(PolkitQt-1)
+find_package(PolkitQt5-1)
 
 
 set(TS_FILES untitled_en_US.ts)

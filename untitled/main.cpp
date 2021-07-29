@@ -5,6 +5,7 @@
 #include <qtimer.h>
 #include "task.h"
 
+#include <polkit-qt5-1/PolkitQt1/Agent/Session>
 
 QCoreApplication* createapp(int& argc, char* argv[] ){
     for (int i = 1 ; i < argc ; i++){
@@ -16,15 +17,22 @@ QCoreApplication* createapp(int& argc, char* argv[] ){
 }
 int main(int argc, char *argv[])
 {
+
     QCoreApplication *a(createapp(argc, argv));
     std::cout<< "QT version :: "<< QT_VERSION_STR << '\n';
     QApplication* aGui = qobject_cast<QApplication*>(QCoreApplication::instance());
 
     if(aGui){
        //gui
+
         MainWindow w;
-        w.show();
-        return aGui->exec();
+        if(w.check_fan_write_permission()){
+            w.show();
+            return aGui->exec();
+        }else{
+            QApplication::exit();
+        }
+
     }else{
         //no-gui
         Task *task = new Task(a);

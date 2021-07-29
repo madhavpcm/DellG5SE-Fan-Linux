@@ -6,13 +6,16 @@
 #include <unistd.h>
 #include <filesystem>
 #include <fcntl.h>
+#include <QApplication>
+#include <QMessageBox>
+
+#define ECio "/sys/kernel/debug/ec/ec0/io"
 
 namespace fs=std::filesystem;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-#define ECio "/sys/kernel/debug/ec/ec0/io"
 #define ManualECMode_cpu 147 // 0x93
 #define ManualECMode_gpu 150 // 0x96
 #define GPUaddr 151 // 0x97
@@ -31,6 +34,8 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    int check_fan_write_permission();
+
     ~MainWindow();
 
 private:
@@ -52,7 +57,6 @@ private:
     const std::string hwmon = "/sys/class/hwmon";
     void loop_break();
     void manual_fan_mode(bool on);
-    void check_fan_write_permission();
     void write_to_ec(int byte_offset, uint8_t value);
 
 private slots:

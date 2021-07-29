@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.2, 2021-07-27T23:46:23. -->
+<!-- Written by QtCreator 4.15.2, 2021-07-30T02:25:20. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -307,14 +307,13 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">untitled</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.untitled</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">untitled</value>
-    <value type="QString" key="RunConfiguration.Arguments">-l 40 50 60 70</value>
     <value type="bool" key="RunConfiguration.RunAsRoot">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="bool" key="RunConfiguration.UseTerminal">true</value>
+    <value type="bool" key="RunConfiguration.UseTerminal">false</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/madhavpcm/Dev/DellG5SE-Fan-Linux/untitled/build/debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>

@@ -27,8 +27,8 @@
    <widget class="QLCDNumber" name="cpu_rpm">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>80</y>
+      <x>200</x>
+      <y>140</y>
       <width>64</width>
       <height>51</height>
      </rect>
@@ -47,8 +47,8 @@
    <widget class="QLCDNumber" name="gpu_temp">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>140</y>
+      <x>280</x>
+      <y>80</y>
       <width>64</width>
       <height>51</height>
      </rect>
@@ -215,17 +215,14 @@
      <number>255</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="kickPB">
+   <widget class="QTimeEdit" name="timeEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>89</width>
-      <height>25</height>
+      <x>40</x>
+      <y>30</y>
+      <width>118</width>
+      <height>26</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
     </property>
    </widget>
   </widget>

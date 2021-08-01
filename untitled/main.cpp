@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QObject>
 #include <QApplication>
+#include <QFile>
 #include <qtimer.h>
 #include "task.h"
 
@@ -23,7 +24,11 @@ int main(int argc, char *argv[])
     QApplication* aGui = qobject_cast<QApplication*>(QCoreApplication::instance());
 
     if(aGui){
-       //gui
+       //gui theme, you can download any qss file or edit this one
+        QFile styleSheetFile("./themes/SyNet.qss");
+        styleSheetFile.open(QFile::ReadOnly);
+        QString styleSheet = QLatin1String(styleSheetFile.readAll());
+        aGui->setStyleSheet(styleSheet);
 
         MainWindow w;
         if(w.check_fan_write_permission()){

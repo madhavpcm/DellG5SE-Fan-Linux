@@ -58,15 +58,13 @@ void MainWindow::on_dial_cpu_valueChanged(int value)
 {
     uint8_t fan = value;
     //set_cpu_fan(value);
-    ui->cpu_rpm->display(value);
+    ui->cpu_rpm->display(fan);
 }
-
-
 void MainWindow::on_dial_gpu_valueChanged(int value)
 {
     uint8_t fan=value;
     //set_gpu_fan(value);
-    ui->gpu_rpm->display(value);
+    ui->gpu_rpm->display(fan);
 }
 void MainWindow::write_to_ec(int byte_offset, uint8_t value){
     int fd = open(ECio, O_WRONLY);

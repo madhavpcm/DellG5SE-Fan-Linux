@@ -211,7 +211,7 @@
      <number>255</number>
     </property>
    </widget>
-   <widget class="QDial" name="dial_gpu">
+   <widget class="CustomDial" name="dial_gpu">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -245,6 +245,9 @@
       <width>48</width>
       <height>26</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>255</number>
     </property>
    </widget>
   </widget>

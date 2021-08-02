@@ -2,48 +2,52 @@
 
 #include <QPainter>
 #include <QColor>
-
+#include <QLabel>
+#include <QRectF>
+#include <QPen>
+#include <QResizeEvent>
 #include <cmath>
 
-CustomDial::CustomDial(QWidget* parent,
-                       double knobRadius,
-                       double knobMargin)
+CustomDial::CustomDial(QWidget* parent)
+: QDial(parent)
+{ }
+
+CustomDial::CustomDial(const QString& text,
+                       QWidget* parent,
+                       int minimum,
+                       int maximum)
 : QDial(parent),
-  knobRadius_(knobRadius),
-  knobMargin_(knobMargin)
+  text_(text),
+  arcRect_(QSharedPointer<QRectF>(new QRectF)),
+  valueRect_(QSharedPointer<QRectF>(new QRectF)),
+  textRect_(QSharedPointer<QRectF>(new QRectF)),
+  arcColor_(QSharedPointer<QColor>(new QColor)),
+  arcPen_(QSharedPointer<QPen>(new QPen))
 {
-    // Default range
-    QDial::setRange(0,100);
-}
-void CustomDial::setKnobRadius(double radius)
-{
-    knobRadius_ = radius;
-}
+    QDial::setRange(minimum, maximum);
 
-double CustomDial::getKnobRadius() const
-{
-    return knobRadius_;
-}
+    QDial::setCursor(Qt::PointingHandCursor);
 
-void CustomDial::setKnobMargin(double margin)
-{
-    knobMargin_ = margin;
-}
+    connect(this, &QDial::valueChanged,
+            this, &CustomDial::updateValue);
 
-double CustomDial::getKnobMargin() const
-{
-    return knobMargin_;
+    setMinimumSize(100,100);
+
+    setMaximumAngle(-360);
+
+    setStartAngle(270);
+
+    updateValue();
 }
+CustomDial::~CustomDial() = default;
+
 
 void CustomDial::paintEvent(QPaintEvent*)
 {
-    static const double degree270 = 1.5 * M_PI;
-
-    static const double degree225 = 1.25 * M_PI;
-
     QPainter painter(this);
 
     // So that we can use the background color
+    // Otherwise the background is transparent
     painter.setBackgroundMode(Qt::OpaqueMode);
 
     // Smooth out the circle
@@ -52,32 +56,114 @@ void CustomDial::paintEvent(QPaintEvent*)
     // Use background color
     painter.setBrush(painter.background());
 
-    // Store color from stylesheet, pen will be overriden
-    QColor pointColor(painter.pen().color());
+    // Get current pen before resetting so we have
+    // access to the color() method which returns the
+    // color from the stylesheet
+    QPen textPen = painter.pen();
 
     // No border
     painter.setPen(QPen(Qt::NoPen));
 
-    // Draw first circle
-    painter.drawEllipse(0, 0, QDial::height(), QDial::height());
+    // Draw background circle
+    painter.drawEllipse(QDial::rect());
 
-    // Reset color to pointColor from stylesheet
-    painter.setBrush(QBrush(pointColor));
+    painter.setPen(textPen);
+
+    painter.drawText(*textRect_, Qt::AlignHCenter | Qt::AlignBottom, text_);
+
+    painter.drawText(*valueRect_, Qt::AlignCenter, valueString_);
+
+    painter.setPen(*arcPen_);
+
+    painter.drawArc(*arcRect_, startAngle_, angleSpan_);
+
+}
+
+void CustomDial::resizeEvent(QResizeEvent* event)
+{
+    QDial::setMinimumSize(event->size());
+
+    double width = QDial::width() - (2 * arcWidth_);
+
+    double height = width / 2;
+
+    *textRect_ = QRectF(arcWidth_, arcWidth_, width, height);
+
+    *valueRect_ = QRectF(arcWidth_, height, width, height);
+
+    *arcRect_ = QRectF(arcWidth_ / 2,
+                       arcWidth_ / 2,
+                       QDial::width() - arcWidth_,
+                       QDial::height() - arcWidth_);
+}
+
+void CustomDial::updateValue()
+{
+    double value = static_cast<double> (QDial::value());
 
     // Get ratio between current value and maximum to calculate angle
-    double ratio = (QDial::value()) / QDial::maximum();
+    double ratio = value / QDial::maximum();
 
-    // The maximum amount of degrees is 270, offset by 225
-    double angle = ratio * degree270 - degree225;
+    angleSpan_ = maximumAngleSpan_ * ratio;
 
-    // Radius of background circle
-    double r = QDial::height() / 2.0;
+    valueString_ = QString::number(value);
+}
 
-    // Add r to have (0,0) in center of dial
-    double y = sin(angle) * (r - knobRadius_ - knobMargin_) + r;
+void CustomDial::setArcWidth(double px)
+{
+    arcWidth_ = px;
 
-    double x = cos(angle) * (r - knobRadius_ - knobMargin_) + r;
+    *arcRect_ = QRectF(arcWidth_ / 2,
+                       arcWidth_ / 2,
+                       QDial::width() - arcWidth_,
+                       QDial::height() - arcWidth_);
 
-    // Draw the ellipse
-    painter.drawEllipse(QPointF(x,y),knobRadius_, knobRadius_);
+    arcPen_->setWidth(arcWidth_);
+}
+
+void CustomDial::setText(const QString& text)
+{
+    text_ = text;
+}
+
+QString CustomDial::getText() const
+{
+    return text_;
+}
+
+double CustomDial::getArcWidth() const
+{
+    return arcWidth_;
+}
+
+void CustomDial::setMaximumAngle(double angle)
+{
+    maximumAngleSpan_ = angle * 16;
+}
+
+double CustomDial::getMaximumAngle() const
+{
+    return maximumAngleSpan_ / 16;
+}
+
+void CustomDial::setStartAngle(double angle)
+{
+    startAngle_ = angle * 16;
+}
+
+double CustomDial::getStartAngle() const
+{
+    return startAngle_ / 16;
+}
+
+void CustomDial::setArcColor(const QString& color)
+{
+    arcColor_->setNamedColor(color);
+
+    arcPen_->setColor(*arcColor_);
+}
+
+QString CustomDial::getArcColor() const
+{
+    return arcColor_->name();
 }

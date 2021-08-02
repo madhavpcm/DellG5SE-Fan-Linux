@@ -1,35 +1,87 @@
-ifndef CUSTOMDIAL_H
+#ifndef CUSTOMDIAL_H
 #define CUSTOMDIAL_H
+
 #include <QDial>
+#include <QString>
+#include <QSharedPointer>
+
+class QColor;
+class QRectF;
+class QPen;
 
 class CustomDial : public QDial
 {
     Q_OBJECT
 
-    Q_PROPERTY(double knobRadius READ getKnobRadius WRITE setKnobRadius)
+    Q_PROPERTY(QString arcColor READ getArcColor WRITE setArcColor)
 
-    Q_PROPERTY(double knobMargin READ getKnobMargin WRITE setKnobMargin)
+    Q_PROPERTY(double arcWidth READ getArcWidth WRITE setArcWidth)
 
 public:
 
-    CustomDial(QWidget * parent = nullptr,
-               double knobRadius = 5,
-               double knobMargin = 5);
+    explicit CustomDial(QWidget* parent = nullptr);
 
-    void setKnobRadius(double radius);
+    CustomDial(const QString& text,
+               QWidget * parent = nullptr,
+               int minimum = 0,
+               int maximum = 999);
+    ~CustomDial();
 
-    double getKnobRadius() const;
+    void setArcColor(const QString& color);
 
-    void setKnobMargin(double margin);
+    QString getArcColor() ;
 
-    double getKnobMargin() const;
+
+    void setStartAngle(double angle);
+
+    double getStartAngle() const;
+
+
+    void setMaximumAngle(double angle);
+
+    double getMaximumAngle() const;
+
+
+    void setArcWidth(double px);
+
+    double getArcWidth() const;
+
+
+    void setText(const QString& text);
+
+    QString getText() const;
+
+
+private slots:
+
+    void updateValue();
 
 private:
 
     virtual void paintEvent(QPaintEvent*) override;
 
-    double knobRadius_;
+    virtual void resizeEvent(QResizeEvent* event) override;
 
-    double knobMargin_;
+    double maximumAngleSpan_;
+
+    double startAngle_;
+
+    double arcWidth_;
+
+    double angleSpan_;
+
+    QString valueString_;
+
+    QString text_;
+
+    QSharedPointer<QRectF> arcRect_;
+
+    QSharedPointer<QRectF> valueRect_;
+
+    QSharedPointer<QRectF> textRect_;
+
+    QSharedPointer<QColor> arcColor_;
+
+    QSharedPointer<QPen> arcPen_;
 };
 #endif

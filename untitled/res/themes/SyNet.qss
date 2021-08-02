@@ -437,8 +437,19 @@ QSpinBox
 }
 CustomDial
 {
-    background-color: #27272B;
-    color: #FFFFFF;
-    qproperty-knobRadius: 5;
-    qproperty-knobMargin: 5;
+  background-color: transparent;
+  font-size: 18px;
+  font-family: DIN;
+  color: #27272B;
+  qproperty-arcColor: #27272B;
+  qproperty-arcWidth: 3;
+}
+
+QLCDNumber
+{
+  background-color: transparent;
+  border: 2px solid #ed6115;
+  border-width: 2px;
+  border-radius: 10px;
+  color: red;
 }

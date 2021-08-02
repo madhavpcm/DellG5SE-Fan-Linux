@@ -1,10 +1,10 @@
-#include "mainwindow.h"
 #include <iostream>
 #include <QObject>
 #include <QApplication>
 #include <QFile>
 #include <qtimer.h>
 #include "task.h"
+#include "mainwindow.h"
 
 #include <polkit-qt5-1/PolkitQt1/Agent/Session>
 
@@ -25,13 +25,16 @@ int main(int argc, char *argv[])
 
     if(aGui){
        //gui theme, you can download any qss file or edit this one
-        QFile styleSheetFile("./themes/SyNet.qss");
+        QFile styleSheetFile(":/themes/themes/SyNet.qss");
         styleSheetFile.open(QFile::ReadOnly);
         QString styleSheet = QLatin1String(styleSheetFile.readAll());
         aGui->setStyleSheet(styleSheet);
+        //std::cout<<styleSheet.toStdString()<<"asdasf";
+
 
         MainWindow w;
         if(w.check_fan_write_permission()){
+
             w.show();
             return aGui->exec();
         }else{

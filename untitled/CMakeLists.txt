@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED  ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(PolkitQt5-1)
-qt5_add_resources(RESOURCE_ADDED ${CMAKE_SOURCE_DIR}/res/res.qrc)
+
 
 set(TS_FILES untitled_en_US.ts)
 
@@ -38,11 +38,14 @@ set(PROJECT_SOURCES
         mainwindow.ui
         inputerror.cpp
         inputerror.h
+        CustomDial.h
+        CustomDial.cpp
         inputerror.ui
         task.h
         task.cpp
         ${TS_FILES}
 )
+qt5_add_resources(PROJECT_SOURCES ${CMAKE_SOURCE_DIR}/res/res.qrc)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(untitled

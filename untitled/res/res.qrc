@@ -1,9 +1,13 @@
 <RCC>
-    <qresource prefix="/new/icons" lang="english">
+    <qresource prefix="/icons" lang="english">
         <file>icons/Ryzen.png</file>
         <file>icons/radeon.png</file>
         <file>icons/ryzen_7.png</file>
         <file>icons/ryzen_5.png</file>
+        <file>icons/needle.png</file>
+        <file>icons/gauge.png</file>
+    </qresource>
+    <qresource prefix="/themes" lang="english">
         <file>themes/SyNet.qss</file>
     </qresource>
 </RCC>

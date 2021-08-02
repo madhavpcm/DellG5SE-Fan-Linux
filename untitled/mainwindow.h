@@ -10,6 +10,7 @@
 #include <QMessageBox>
 
 #define ECio "/sys/kernel/debug/ec/ec0/io"
+#include "ui_mainwindow.h"
 
 namespace fs=std::filesystem;
 QT_BEGIN_NAMESPACE

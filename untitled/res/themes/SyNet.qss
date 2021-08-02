@@ -431,3 +431,14 @@ QScrollBar::sub-page:vertical
     background-color: transparent;
 
 }
+QSpinBox
+{
+    background-color: #b0aeae;
+}
+CustomDial
+{
+    background-color: #27272B;
+    color: #FFFFFF;
+    qproperty-knobRadius: 5;
+    qproperty-knobMargin: 5;
+}

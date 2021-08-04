@@ -440,8 +440,8 @@ CustomDial
   background-color: transparent;
   font-size: 18px;
   font-family: DIN;
-  color: #27272B;
-  qproperty-arcColor: #27272B;
+  color: red;
+  qproperty-arcColor: red;
   qproperty-arcWidth: 3;
 }
 

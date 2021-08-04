@@ -10,38 +10,33 @@
 
 CustomDial::CustomDial(QWidget* parent)
 : QDial(parent)
-{ }
+{
+    init("", 0, 100);
+}
+
 
 CustomDial::CustomDial(const QString& text,
-                       QWidget* parent,
                        int minimum,
-                       int maximum)
-: QDial(parent),
-  text_(text),
-  arcRect_(QSharedPointer<QRectF>(new QRectF)),
-  valueRect_(QSharedPointer<QRectF>(new QRectF)),
-  textRect_(QSharedPointer<QRectF>(new QRectF)),
-  arcColor_(QSharedPointer<QColor>(new QColor)),
-  arcPen_(QSharedPointer<QPen>(new QPen))
+                       int maximum,
+                       QWidget* parent)
+    : QDial(parent)
 {
-    QDial::setRange(minimum, maximum);
-
-    QDial::setCursor(Qt::PointingHandCursor);
-
-    connect(this, &QDial::valueChanged,
-            this, &CustomDial::updateValue);
-
-    setMinimumSize(100,100);
-
-    setMaximumAngle(-360);
-
-    setStartAngle(270);
-
-    updateValue();
+    init(text, minimum, maximum);
 }
 CustomDial::~CustomDial() = default;
 
-
+void CustomDial::init(const QString & text, int minimum,
+                      int maximum)
+{
+    text_ = text;
+    setRange(minimum, maximum);
+    setCursor(Qt::PointingHandCursor);
+    connect(this, &QDial::valueChanged, this, &CustomDial::updateValue);
+    setMinimumSize(100,100);
+    setMaximumAngle(-360);
+    setStartAngle(270);
+    updateValue();
+}
 void CustomDial::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
@@ -66,17 +61,11 @@ void CustomDial::paintEvent(QPaintEvent*)
 
     // Draw background circle
     painter.drawEllipse(QDial::rect());
-
     painter.setPen(textPen);
-
-    painter.drawText(*textRect_, Qt::AlignHCenter | Qt::AlignBottom, text_);
-
-    painter.drawText(*valueRect_, Qt::AlignCenter, valueString_);
-
-    painter.setPen(*arcPen_);
-
-    painter.drawArc(*arcRect_, startAngle_, angleSpan_);
-
+    painter.drawText(textRect_, Qt::AlignHCenter | Qt::AlignBottom, text_);
+    painter.drawText(valueRect_, Qt::AlignCenter, valueString_);
+    painter.setPen(arcPen_);
+    painter.drawArc(arcRect_, startAngle_, angleSpan_);
 }
 
 void CustomDial::resizeEvent(QResizeEvent* event)
@@ -87,11 +76,11 @@ void CustomDial::resizeEvent(QResizeEvent* event)
 
     double height = width / 2;
 
-    *textRect_ = QRectF(arcWidth_, arcWidth_, width, height);
+    textRect_ = QRectF(arcWidth_, arcWidth_, width, height);
 
-    *valueRect_ = QRectF(arcWidth_, height, width, height);
+    valueRect_ = QRectF(arcWidth_, height, width, height);
 
-    *arcRect_ = QRectF(arcWidth_ / 2,
+    arcRect_ = QRectF(arcWidth_ / 2,
                        arcWidth_ / 2,
                        QDial::width() - arcWidth_,
                        QDial::height() - arcWidth_);
@@ -113,12 +102,12 @@ void CustomDial::setArcWidth(double px)
 {
     arcWidth_ = px;
 
-    *arcRect_ = QRectF(arcWidth_ / 2,
+    arcRect_ = QRectF(arcWidth_ / 2,
                        arcWidth_ / 2,
                        QDial::width() - arcWidth_,
                        QDial::height() - arcWidth_);
 
-    arcPen_->setWidth(arcWidth_);
+    arcPen_.setWidth(arcWidth_);
 }
 
 void CustomDial::setText(const QString& text)
@@ -158,12 +147,12 @@ double CustomDial::getStartAngle() const
 
 void CustomDial::setArcColor(const QString& color)
 {
-    arcColor_->setNamedColor(color);
+    arcColor_.setNamedColor(color);
 
-    arcPen_->setColor(*arcColor_);
+    arcPen_.setColor(arcColor_);
 }
 
-QString CustomDial::getArcColor() const
+QString CustomDial::getArcColor()
 {
-    return arcColor_->name();
+    return arcColor_.name();
 }

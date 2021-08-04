@@ -11,7 +11,7 @@
 CustomDial::CustomDial(QWidget* parent)
 : QDial(parent)
 {
-    init("", 0, 100);
+    init("", 0, 255);
 }
 
 
@@ -33,8 +33,8 @@ void CustomDial::init(const QString & text, int minimum,
     setCursor(Qt::PointingHandCursor);
     connect(this, &QDial::valueChanged, this, &CustomDial::updateValue);
     setMinimumSize(100,100);
-    setMaximumAngle(-360);
-    setStartAngle(270);
+    setMaximumAngle(-270);
+    setStartAngle(225);
     updateValue();
 }
 void CustomDial::paintEvent(QPaintEvent*)

@@ -40,7 +40,7 @@ public:
     ~MainWindow();
 
 private:
-    std::atomic_bool is_auto_mode_running = false;
+    std::atomic_bool is_manual = false;
 
     Ui::MainWindow *ui;
 
@@ -59,7 +59,10 @@ private:
     void loop_break();
     void manual_fan_mode(bool on);
     void write_to_ec(int byte_offset, uint8_t value);
+    void set_cpu_fan(uint8_t left);
 
+    void set_gpu_fan(uint8_t right);
+    uint8_t hex_to_EC(uint8_t x);
 private slots:
     //void on_auto_Exec_clicked();
     //void on_manual_Exec_clicked();
@@ -67,6 +70,13 @@ private slots:
     void on_dial_cpu_valueChanged(int value);
 
     void on_dial_gpu_valueChanged(int value);
+
+    void on_setButton_clicked();
+
+
+
+
+    void on_resetButton_clicked();
 
 signals:
     //void update_cpu(int);

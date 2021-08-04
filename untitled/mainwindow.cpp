@@ -13,21 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-void MainWindow::manual_fan_mode(bool on)
-{
-    if(on){
-        write_to_ec(ManualECMode_cpu, 255);
-        write_to_ec(ManualECMode_gpu, 255);
-        QMessageBox::information(this,"Fan status","Fans are now in Manual mode");
-    }
-    else
-    {
-        write_to_ec(ManualECMode_cpu, 4);
-        write_to_ec(ManualECMode_gpu, 4);
-        QMessageBox::information(this, "Fan status", "Fans are now under BIOS control");
-    }
-
-}
 
 int MainWindow::check_fan_write_permission()
 {
@@ -51,7 +36,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+void MainWindow::set_cpu_fan(uint8_t left)
+{
+    // Force left to be in [0,256]
+//    int l = std::max(0, std::min(255, left));
+    // Writes to hwmon
+   // std::ofstream pwm;
+  //  pwm.open(dellsmm + "/pwm1");
+    //pwm << l;
+    //pwm.close();
+    write_to_ec(CPUaddr, left);
+};
+// Set gpu fans to selected speed. Input should be in the set {0,128,256}.
+void MainWindow::set_gpu_fan(uint8_t right)
+{
+    // Force right to be in [0,256]
+    //int r = std::max(0, std::min(255, right));
+    //// Writes to hwmon
+    //std::ofstream pwm;
+    //pwm.open(dellsmm + "/pwm3");
+    //pwm << r;
+    //pwm.close();
+    write_to_ec(GPUaddr,right);
+};
 
 void MainWindow::on_dial_cpu_valueChanged(int value)
 {
@@ -83,3 +90,45 @@ void MainWindow::write_to_ec(int byte_offset, uint8_t value){
     else
         QMessageBox::warning(this,"title","Error Writing to EC");
 }
+
+
+void MainWindow::on_setButton_clicked()
+{
+    if(!is_manual){
+        is_manual=true;
+        manual_fan_mode(true);
+
+    }
+    uint8_t c_target= ui->cpu_val->value(),
+            g_target= ui->gpu_val->value();
+    set_cpu_fan(hex_to_EC(c_target));
+    set_gpu_fan(hex_to_EC(g_target));
+
+
+}
+void MainWindow::manual_fan_mode(bool on)
+{
+    if(on){
+        write_to_ec(ManualECMode_cpu, 255);
+        write_to_ec(ManualECMode_gpu, 255);
+        QMessageBox::warning(this,"Fan Mode", "Manual mode enabled");
+    }
+    else
+    {
+        write_to_ec(ManualECMode_cpu, 4);
+        write_to_ec(ManualECMode_gpu, 4);
+        QMessageBox::warning(this,"Fan Mode", "Returned to BIOS fan control");
+    }
+
+}
+
+void MainWindow::on_resetButton_clicked()
+{
+    if(is_manual){
+        is_manual=false;
+        manual_fan_mode(false);
+    }
+}
+uint8_t MainWindow::hex_to_EC(uint8_t x){
+    return std::min(std::max(255-x, 91),255);
+};

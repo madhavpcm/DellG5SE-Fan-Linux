@@ -15,7 +15,7 @@ public:
     explicit CustomDial(QWidget* parent = nullptr);
     CustomDial(const QString& text,
                int minimum = 0,
-               int maximum = 999,
+               int maximum = 255,
                QWidget * parent = nullptr);
     ~CustomDial();
 

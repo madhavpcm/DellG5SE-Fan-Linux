@@ -8,10 +8,10 @@
 #include <fcntl.h>
 #include <QApplication>
 #include <QMessageBox>
-
+#include <fstream>
 #define ECio "/sys/kernel/debug/ec/ec0/io"
 #include "ui_mainwindow.h"
-
+#include <QTimer>
 namespace fs=std::filesystem;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -58,9 +58,10 @@ private:
     const std::string hwmon = "/sys/class/hwmon";
     void loop_break();
     void manual_fan_mode(bool on);
+    void Hwmon_get();
     void write_to_ec(int byte_offset, uint8_t value);
     void set_cpu_fan(uint8_t left);
-
+    void normalize();
     void set_gpu_fan(uint8_t right);
     uint8_t hex_to_EC(uint8_t x);
 private slots:
@@ -73,10 +74,14 @@ private slots:
 
     void on_setButton_clicked();
 
-
+    void update_vars();
 
 
     void on_resetButton_clicked();
+
+    void on_cpu_val_valueChanged(int arg1);
+
+    void on_gpu_val_valueChanged(int arg1);
 
 signals:
     //void update_cpu(int);

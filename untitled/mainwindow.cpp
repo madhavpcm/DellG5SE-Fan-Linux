@@ -6,11 +6,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //check if sensors are addressable
     Hwmon_get();
     ui->setupUi(this);
+    //sensors polling at 500ms
     QTimer* sens_probe = new QTimer(this);
     connect(sens_probe,SIGNAL(timeout()),this,SLOT(update_vars()) );
     sens_probe->start(500);
+
 
 }
 
@@ -19,21 +22,22 @@ int MainWindow::check_fan_write_permission()
 {
     if (getuid() != 0){
         QMessageBox::warning(this, "Error", "This program needs elevated permissions to run. Run as sudo");
-
-        return 0;
+        close();
     }
     // Checks if ec_sys is correctly loaded.
     try {
         fs::path f(ECio);
     }  catch (fs::filesystem_error) {
         QMessageBox::warning(this, "Error", "Cannot find ECio path. Try 'sudo modprobe ec_sys write_support=1' or add 'ec_sys.write_support=1' as kernel parameter if that's not working.");
-        return 0;
+        close();
     }
     return 1;
 
 }
 MainWindow::~MainWindow()
 {
+    if(is_manual)
+        manual_fan_mode(false);
     delete ui;
 }
 
@@ -144,7 +148,7 @@ void MainWindow::on_resetButton_clicked()
 }
 
 uint8_t MainWindow::hex_to_EC(uint8_t x){
-    return std::min(std::max(255-x, 91),255);
+    return std::min(std::max(255-x,91 ),255);
 };
 
 void MainWindow::Hwmon_get()

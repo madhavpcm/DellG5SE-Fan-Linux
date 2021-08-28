@@ -44,11 +44,11 @@ QPushButton
 {
 	background-color: #ff3333;
 	color: #fff;
-	font-size: 11px;
-	font-weight: bold;
+        font-size: 9px;
+        font-weight: bold;
 	border: none;
 	border-radius: 25px;
-	padding: 5px;
+        padding: 4px;
 
 }
 
@@ -452,4 +452,22 @@ QLCDNumber
   border-width: 2px;
   border-radius: 10px;
   color: red;
+}
+QMenu {
+    background-color: #333333; /* sets background of the menu */
+    border: 1px solid #555555;
+    title: white;
+    text: white;
+}
+
+QMenu::item {
+    background-color: transparent;
+    color: red;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #c22b2b;
+}
+QMenu::item:hover{
+    background-color: #555555;
 }

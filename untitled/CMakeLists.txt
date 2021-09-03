@@ -27,12 +27,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED  ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(PolkitQt5-1)
+find_package(Qt5PrintSupport)
 
 
 set(TS_FILES untitled_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
+        qcustomplot.cpp
+        qcustomplot.h
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
@@ -68,5 +71,5 @@ else()
 endif()
 
 target_link_libraries(untitled PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(untitled PRIVATE PolkitQt5-1::Core PolkitQt5-1::Gui PolkitQt5-1::Agent)
+target_link_libraries(untitled PRIVATE Qt5::PrintSupport)
 

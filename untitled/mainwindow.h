@@ -41,14 +41,15 @@ public:
 
 private:
     std::atomic_bool is_manual = false;
-
+    std::atomic_bool is_auto= false;
     Ui::MainWindow *ui;
-
+    QTimer* m_fan_loop;
+    QTimer* m_sens_probe;
     int cpu_temp;
     int gpu_temp;
     int cpu_fan;
     int gpu_fan;
-
+    u_int32_t m_poll_interval;
     std::string GPU_path;
     std::string CPU_path;
     std::string CPU_fan_path;
@@ -64,6 +65,7 @@ private:
     void normalize();
     void set_gpu_fan(uint8_t right);
     uint8_t hex_to_EC(uint8_t x);
+    void curve_update();
 private slots:
     //void on_auto_Exec_clicked();
     //void on_manual_Exec_clicked();
@@ -83,6 +85,15 @@ private slots:
 
     void on_gpu_val_valueChanged(int arg1);
 
+    void on_auto_mode_clicked();
+
+    void on_set_mode_clicked();
+
+    void on_ec_edit_clicked();
+
+    void on_Enable_clicked();
+
+    void enable_fan_loop();
 signals:
     //void update_cpu(int);
     //void update_cpu_fan(int);

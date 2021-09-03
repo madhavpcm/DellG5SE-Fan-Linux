@@ -5,16 +5,24 @@ bool isExec = false;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_poll_interval(500)
 {
     //check if sensors are addressable
+
     Hwmon_get();
     ui->setupUi(this);
     //sensors polling at 500ms
-    QTimer* sens_probe = new QTimer(this);
-    connect(sens_probe,SIGNAL(timeout()),this,SLOT(update_vars()) );
-    sens_probe->start(500);
+    connect(m_sens_probe,SIGNAL(timeout()),this,SLOT(update_vars()) );
+    connect(m_fan_loop,SIGNAL(timeout()),this,SLOT(fan_loop()) );
+    m_sens_probe->start(m_poll_interval);
 
+    ui->curve->xAxis->setRange(0,100);
+    ui->curve->yAxis->setRange(0,6400);
+    ui->curve->yAxis->setLabel("Fan RPM");
+    ui->curve->xAxis->setLabel("Temp °C");
 
+    connect(ui->actionAuto,SIGNAL(triggered()),this,SLOT(on_auto_mode_clicked()));
+    connect(ui->actionSet,SIGNAL(triggered()),this,SLOT(on_set_mode_clicked()));
 }
 
 
@@ -224,3 +232,31 @@ void MainWindow::normalize(){
     cpu_temp/=1000;
     gpu_temp/=1000;
 }
+
+void MainWindow::on_auto_mode_clicked(){
+    ui->stackedWidget->setCurrentIndex(1) ;
+}
+void MainWindow::on_set_mode_clicked(){
+    ui->stackedWidget->setCurrentIndex(0) ;
+}
+void MainWindow::on_ec_edit_clicked(){
+}
+
+
+
+void MainWindow::on_Enable_clicked()
+{
+    if(!is_manual)
+        manual_fan_mode(true);
+    if(!is_auto)
+        is_auto = true;
+
+    m_sens_probe->stop();
+    m_sens_probe->start(m_poll_interval);
+    m_fan_loop->start(m_poll_interval);
+}
+void MainWindow::enable_fan_loop(){
+
+
+}
+

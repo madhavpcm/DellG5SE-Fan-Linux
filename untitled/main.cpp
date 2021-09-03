@@ -6,7 +6,6 @@
 #include "task.h"
 #include "mainwindow.h"
 
-#include <polkit-qt5-1/PolkitQt1/Agent/Session>
 
 QCoreApplication* createapp(int& argc, char* argv[] ){
     for (int i = 1 ; i < argc ; i++){

@@ -9,9 +9,12 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <fstream>
+#include <QColor>
+#include <QRgb>
 #define ECio "/sys/kernel/debug/ec/ec0/io"
 #include "ui_mainwindow.h"
 #include <QTimer>
+#include <vector>
 namespace fs=std::filesystem;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -54,7 +57,9 @@ private:
     std::string CPU_path;
     std::string CPU_fan_path;
     std::string GPU_fan_path;
-
+    QVector<double> m_pointsX,m_pointsY;
+    QCPCurve *m_curve;
+    QCustomPlot *m_plot;
     std::string dellsmm="";
     const std::string hwmon = "/sys/class/hwmon";
     void loop_break();
@@ -66,6 +71,8 @@ private:
     void set_gpu_fan(uint8_t right);
     uint8_t hex_to_EC(uint8_t x);
     void curve_update();
+    void init_graph();
+    void draw_graph(uint32_t i);
 private slots:
     //void on_auto_Exec_clicked();
     //void on_manual_Exec_clicked();
@@ -77,7 +84,6 @@ private slots:
     void on_setButton_clicked();
 
     void update_vars();
-
 
     void on_resetButton_clicked();
 
@@ -91,9 +97,14 @@ private slots:
 
     void on_ec_edit_clicked();
 
-    void on_Enable_clicked();
+    void add_point(QMouseEvent*e);
 
-    void enable_fan_loop();
+    void fan_loop();
+
+    void on_enable_pressed();
+
+    void on_disable_pressed();
+
 signals:
     //void update_cpu(int);
     //void update_cpu_fan(int);

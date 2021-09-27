@@ -5,27 +5,70 @@ bool isExec = false;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , m_poll_interval(500)
+    , m_fan_loop(new QTimer(this))
+    , m_sens_probe(new QTimer(this))
 {
     //check if sensors are addressable
-
+    m_poll_interval = 300;
     Hwmon_get();
     ui->setupUi(this);
+    init_graph();
     //sensors polling at 500ms
+
     connect(m_sens_probe,SIGNAL(timeout()),this,SLOT(update_vars()) );
     connect(m_fan_loop,SIGNAL(timeout()),this,SLOT(fan_loop()) );
     m_sens_probe->start(m_poll_interval);
 
-    ui->curve->xAxis->setRange(0,100);
-    ui->curve->yAxis->setRange(0,6400);
-    ui->curve->yAxis->setLabel("Fan RPM");
-    ui->curve->xAxis->setLabel("Temp °C");
 
     connect(ui->actionAuto,SIGNAL(triggered()),this,SLOT(on_auto_mode_clicked()));
     connect(ui->actionSet,SIGNAL(triggered()),this,SLOT(on_set_mode_clicked()));
 }
 
+void MainWindow::init_graph(){
 
+
+    m_curve = new QCPCurve(ui->curve->xAxis, ui->curve->yAxis);
+    m_curve->setName("Fan curve") ;
+    ui->curve->xAxis->setRange(0,100);
+    ui->curve->yAxis->setRange(0,6400);
+    ui->curve->yAxis->setLabel("Fan RPM");
+    ui->curve->xAxis->setLabel("Temp °C");
+    ui->curve->setOpenGl(true, 8);
+    QColor bgColor("#140403");
+    QColor txtColor("#eeeeee");
+    QColor gColor("#rr0000");
+
+    QPen graphPen;
+    graphPen.setWidth(2);
+    graphPen.setColor(gColor);
+    QPen tickPen;
+    tickPen.setWidthF(0.5);
+    tickPen.setColor(gColor);
+
+    // Define the filler line vectors and graphs so they don't need to be recreated every update
+    ui->curve->addGraph();
+    ui->curve->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
+    ui->curve->graph(0)->setData(m_pointsX,m_pointsY);
+    ui->curve->graph(0)->setPen(graphPen);
+    ui->curve->graph(0)->setBrush(QBrush(QColor(255,0,0,29)));
+    ui->curve->graph(0)->setLineStyle(QCPGraph::lsNone);
+
+    ui->curve->setBackground(bgColor);
+    ui->curve->xAxis->setLabelColor(txtColor);
+    ui->curve->yAxis->setLabelColor(txtColor);
+    ui->curve->xAxis->setTickLabelColor(txtColor);
+    ui->curve->yAxis->setTickLabelColor(txtColor);
+
+    ui->curve->xAxis->setTickPen(tickPen);
+    ui->curve->yAxis->setTickPen(tickPen);
+    ui->curve->xAxis->setSubTickPen(tickPen);
+    ui->curve->yAxis->setSubTickPen(tickPen);
+    ui->curve->xAxis->setBasePen(tickPen);
+    ui->curve->yAxis->setBasePen(tickPen);;
+
+
+    connect(ui->curve, SIGNAL(mouseDoubleClick(QMouseEvent* )), this, SLOT(add_point(QMouseEvent*)));
+}
 int MainWindow::check_fan_write_permission()
 {
     if (getuid() != 0){
@@ -240,11 +283,12 @@ void MainWindow::on_set_mode_clicked(){
     ui->stackedWidget->setCurrentIndex(0) ;
 }
 void MainWindow::on_ec_edit_clicked(){
+
 }
 
 
 
-void MainWindow::on_Enable_clicked()
+void MainWindow::on_enable_pressed()
 {
     if(!is_manual)
         manual_fan_mode(true);
@@ -255,8 +299,33 @@ void MainWindow::on_Enable_clicked()
     m_sens_probe->start(m_poll_interval);
     m_fan_loop->start(m_poll_interval);
 }
-void MainWindow::enable_fan_loop(){
+void MainWindow::fan_loop(){
+//calculations of fan rpm vs temp
+
+}
+
+void MainWindow::add_point(QMouseEvent* e){
+    if(e->button() == Qt::LeftButton) {
+        m_pointsX.push_back(e->pos().x());
+        m_pointsY.push_back(e->pos().y());
+    }
+    draw_graph(0);
+}
+void MainWindow::draw_graph(uint32_t i){
+    ui->curve->graph(i)->setData(m_pointsX,m_pointsY);
+    ui->curve->replot();
+    ui->curve->update();
+}
 
 
+
+
+void MainWindow::on_disable_pressed()
+{
+    if(is_auto) {
+        is_auto = false;
+        m_sens_probe->stop();
+        m_fan_loop->stop();
+    }
 }
 

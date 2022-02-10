@@ -58,11 +58,12 @@ This also should allow you to map profiles / fan speeds to keyboard shortcuts vi
 - [x] Make a config file
   - [ ] Live update on temp changes in config file
 - [x] Cpp version 
-  - [] gui
+  - [x] gui
     - [x] Temperature monitoring, temp graphs.
-    - [ ] Update profile / Fan speed.
+    - [x] Update profile / Fan speed.
     - [ ] Keyboard shortcut,
+    - [ ] Auto Fan curve
 - [x] Direct EC editing.
   - [x] GPU part.
-  - [x] CPU part. Need to find a way to disable bios fan control. 
+  - [x] CPU part.
 - [ ] Tell me 
